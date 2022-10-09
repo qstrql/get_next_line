@@ -6,8 +6,13 @@
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:50:59 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/09 14:50:59 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/09 16:48:02 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
+char *get_next_line(int fd);
+
+#endif
