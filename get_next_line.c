@@ -6,7 +6,7 @@
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:50:48 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/09 16:47:49 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/10 16:27:34 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 
 char *get_next_line(int fd)
 {
-	char *str;
+	static char **tab[1024];
+	char buf[BUFFER_SIZE];
 	
+	read(fd, buf, BUFFER_SIZE);
 	
 
-	return (str);
+	return ();
 }
