@@ -6,7 +6,7 @@
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:51:07 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/11 16:20:07 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/11 23:43:04 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,31 @@ char	*ft_strchr(const char *s, int c)
 	if ((unsigned char)c == '\0')
 		return ((char *)&s[i]);
 	return (0);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t		i;
+	size_t		s_len;
+	char		*out;
+
+	i = 0;
+	if (s == 0)
+		return (0);
+	s_len = ft_strlen(s);
+	if (len > s_len)
+		len = s_len;
+	else if (s_len == len && len == start + 1)
+		len = 1;
+	if (start > s_len)
+		return (out = ft_calloc(1, sizeof(char)));
+	out = ft_calloc(len + 1, sizeof(char));
+	if (out == NULL)
+		return (NULL);
+	while (i < len && s[start + i] != '\0' && start <= ft_strlen(s))
+	{
+		out[i] = s[start + i];
+		i++;
+	}
+	return (out);
 }
