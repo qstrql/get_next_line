@@ -6,7 +6,7 @@
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:50:48 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/16 16:08:19 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:27:57 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ char *get_next_line(int fd)
 		return (NULL);
 	if (buf == NULL)
 		return (NULL);
-
+	line = ft_get_line(buf);
+	tmp = ft_get_extra(buf);
 	return (line);
 }	
 
