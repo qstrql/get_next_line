@@ -6,7 +6,7 @@
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:50:48 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/16 16:27:57 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/17 10:48:56 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_get_line(char *str)
 	if (str[i] != '\0' && str[i] == '\n')
 		i += 2;
 	line = ft_calloc(i, sizeof(char *));
-	if (line = NULL)
+	if (line == NULL)
 		return (NULL);
 	i = 0;
 	while (str[i] != '\0' && str[i] != '\n')
@@ -34,6 +34,8 @@ char	*ft_get_line(char *str)
 		line[i] = str[i];
 		i++;
 	}
+	line[i] = '\n';
+	line[i + 1] = '\0';
 	return (line);
 }
 
