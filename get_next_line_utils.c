@@ -6,7 +6,7 @@
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:51:07 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/11 23:43:04 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/18 15:13:30 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,21 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	size_t		i;
-	size_t	fullsize;
-	char	*mem;
+	size_t		fullsize;
+	char		*mem;
 
 	i = 0;
 	if (nmemb > 2147483647 || size > 2147483647)
@@ -53,29 +63,39 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin(char *buf, char *line)
 {
 	size_t		i;
-	size_t		s_len;
-	char		*out;
+	size_t		j;
+	size_t		len;
+	char		*re_line;
 
 	i = 0;
-	if (s == 0)
-		return (0);
-	s_len = ft_strlen(s);
-	if (len > s_len)
-		len = s_len;
-	else if (s_len == len && len == start + 1)
-		len = 1;
-	if (start > s_len)
-		return (out = ft_calloc(1, sizeof(char)));
-	out = ft_calloc(len + 1, sizeof(char));
-	if (out == NULL)
+	j = 0;
+	if (buf == NULL || line == NULL)
 		return (NULL);
-	while (i < len && s[start + i] != '\0' && start <= ft_strlen(s))
+	len = ft_strlen(buf) + ft_strlen(line);
+	re_line = ft_calloc(len + 1, sizeof(char));
+	if (re_line == NULL)
+		return (NULL);
+	while (buf[i] != '\0')
 	{
-		out[i] = s[start + i];
+		re_line[i] = buf[i];
 		i++;
 	}
-	return (out);
+	while (line[j] != '\0')
+	{
+		re_line[i + j] = line[j];
+		j++;
+	}
+	return (re_line);
+}
+
+char	*ft_realloc(char *buf, char *line)
+{
+	char	*re_line;
+
+	re_line = ft_strjoin(buf, line);
+	free(buf);
+	return (re_line);
 }

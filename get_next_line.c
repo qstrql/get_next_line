@@ -6,7 +6,7 @@
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:50:48 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/17 10:48:56 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/18 15:22:04 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*ft_get_line(char *str)
 	i = 0;
 	while (str[i] != '\0' && str[i] != '\n')
 		i++;
-	if (str[i] != '\0' && str[i] == '\n')
-		i += 2;
-	line = ft_calloc(i, sizeof(char *));
+	if (str[i] == '\n')
+		i += 1;
+	line = ft_calloc(i + 1, sizeof(char));
 	if (line == NULL)
 		return (NULL);
 	i = 0;
@@ -34,8 +34,8 @@ char	*ft_get_line(char *str)
 		line[i] = str[i];
 		i++;
 	}
-	line[i] = '\n';
-	line[i + 1] = '\0';
+	if (str[i] == '\n')
+		line[i] = '\n';
 	return (line);
 }
 
@@ -51,9 +51,9 @@ char	*ft_get_extra(char *str)
 	i = 0;
 	while (str[i] != '\0' && str[i] != '\n')
 		i++;
-	if (str[i] != '\0' && str[i] == '\n')
+	if (str[i] == '\n')
 		i += 1;
-	extra = ft_calloc((len - i) + 1, sizeof(char *));
+	extra = ft_calloc((len - i) + 1, sizeof(char));
 	if (extra == NULL)
 		return (NULL);
 	len = 0;
@@ -62,24 +62,49 @@ char	*ft_get_extra(char *str)
 		extra[len] = str[i + len];
 		len++;
 	}
+	free(str);
 	return (extra);
 }
 
-char *get_next_line(int fd)
+char	*ft_reader(char *buf, int fd)
 {
 	char	*line;
-	char	*tmp;
-	static char buf[BUFFER_SIZE + 1] = "";	
+	ssize_t	size_read;
+
+	size_read = 1;
+	if (buf == NULL)
+		buf = ft_calloc(1, sizeof(char));
+	line = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (line == NULL)
+		return (NULL);
+	while (ft_strchr(buf, '\n') == 0 && size_read > 0)
+	{
+		size_read = read(fd, line, BUFFER_SIZE);
+		if (size_read == -1)
+		{
+			free(buf);
+			free(line);
+			return (NULL);
+		}
+		line[size_read] = '\0';
+		buf = ft_realloc(buf, line);
+	}
+	free(line);
+	return (buf);
+}
+
+char	*get_next_line(int fd)
+{
+	char		*line;
+	static char	*buf = NULL;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	buf = ft_reader(buf, fd);
 	if (buf == NULL)
 		return (NULL);
 	line = ft_get_line(buf);
-	tmp = ft_get_extra(buf);
+	buf = ft_get_extra(buf);
 	return (line);
-}	
-
-
-
-	
+}
+//return null si buf = null et read renvoie 0;
