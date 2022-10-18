@@ -6,7 +6,7 @@
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:50:48 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/18 15:22:04 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/18 15:32:43 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*ft_get_line(char *str)
 	char	*line;
 
 	i = 0;
+	if (str[0] == '\0')
+		return (NULL);
 	while (str[i] != '\0' && str[i] != '\n')
 		i++;
 	if (str[i] == '\n')
@@ -107,4 +109,3 @@ char	*get_next_line(int fd)
 	buf = ft_get_extra(buf);
 	return (line);
 }
-//return null si buf = null et read renvoie 0;
