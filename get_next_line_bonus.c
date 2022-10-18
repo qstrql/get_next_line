@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:50:48 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/18 15:32:43 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/18 16:33:46 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdlib.h> //free
 #include <sys/types.h> //ssize_t
 #include <unistd.h> //read
@@ -98,14 +98,14 @@ char	*ft_reader(char *buf, int fd)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*buf = NULL;
+	static char	*buf[1024] = {NULL};
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buf = ft_reader(buf, fd);
-	if (buf == NULL)
+	buf[fd] = ft_reader(buf[fd], fd);
+	if (buf[fd] == NULL)
 		return (NULL);
-	line = ft_get_line(buf);
-	buf = ft_get_extra(buf);
+	line = ft_get_line(buf[fd]);
+	buf[fd] = ft_get_extra(buf[fd]);
 	return (line);
 }
