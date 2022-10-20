@@ -6,7 +6,7 @@
 /*   By: mjouot <mjouot@marvin.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:50:48 by mjouot            #+#    #+#             */
-/*   Updated: 2022/10/18 17:57:18 by mjouot           ###   ########.fr       */
+/*   Updated: 2022/10/20 11:48:43 by mjouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,17 @@ char	*ft_get_extra(char *str)
 	int		len;
 	char	*extra;
 
-	len = 0;
-	while (str[len] != '\0')
-		len++;
+	len = ft_strlen(str);
 	i = 0;
 	while (str[i] != '\0' && str[i] != '\n')
 		i++;
-	if (str[i] == '\n')
-		i += 1;
+	if (str[i] == '\0')
+	{
+		free(str);
+		return (NULL);
+	}
 	extra = ft_calloc((len - i) + 1, sizeof(char));
+	i += 1;
 	if (extra == NULL)
 		return (NULL);
 	len = 0;
